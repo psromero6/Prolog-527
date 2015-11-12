@@ -34,7 +34,8 @@ state_record(State, Parent, G, H, F, [State, Parent, G, H, F]).
 precedes([_,_,_,_,F1], [_,_,_,_,F2]) :- F1 =< F2.   
 
     % go initializes Open and CLosed and calls path 
-go(Start, Goal) :- 
+go(Start, Goal) :-
+    write('best first missionaries and cannibals:'), nl,
     empty_set(Closed),
     empty_sort_queue(Empty_open),
     heuristic(Start, Goal, H),
@@ -66,7 +67,7 @@ path(Open, Closed, Goal) :-
     % I needed to use the or to make it return an empty list in this case
 path(Open, Closed, Goal) :- 
     remove_sort_queue(First_record, Open, Rest_of_open),
-    (bagof(Child, moves(First_record, Open, Closed, Child, Goal), Children);Children = []),
+    (bagof(Child, moves(First_record, Open, Closed, Child, Goal), Children);Children = []),    
     insert_list(Children, Rest_of_open, New_open),
     add_to_set(First_record, Closed, New_closed),
     path(New_open, New_closed, Goal),!.
@@ -110,97 +111,87 @@ printsolution(Next_record, Closed) :-
     printsolution(Parent_record, Closed),
     write(State), nl.
 
-    %%% heuristic predicate %%%
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% heuristic predicate %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    heuristic(state(M,C,B), Goal, H) :-
+heuristic(state(M,C,B), Goal, H) :-
         TempH is M+C,
         H is TempH+B.
 
-    %%% move predicate %%%
-    %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+%%% move predicate %%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-    %%% boat %%%
-    %%%%%%%%%%%%
+%%% boat %%%
+%%%%%%%%%%%%
     
-    move(state(Mis,Can,1), state(Mis_v,Can_v,0))
-        :- Mis_v is Mis-1, Can_v is Can-1,
+move(state(Mis,Can,1), state(Mis_v,Can_v,0)) :-
+	 Mis_v is Mis-1, Can_v is Can-1,
         not(illegal(state(Mis_v,Can_v,0))),
         write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
 
-    move(state(Mis,Can,1), state(Mis_v,Can_v,0))
-        :- Mis_v is Mis-2, Can_v is Can,
+move(state(Mis,Can,1), state(Mis_v,Can_v,0)):-
+    Mis_v is Mis-2, Can_v is Can,
         not(illegal(state(Mis_v,Can_v,0))),
         write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
     
-    move(state(Mis,Can,1), state(Mis_v,Can_v,0))
-        :- Mis_v is Mis, Can_v is Can-2,
+move(state(Mis,Can,1), state(Mis_v,Can_v,0)):-
+    Mis_v is Mis, Can_v is Can-2,
         not(illegal(state(Mis_v,Can_v,0))),
         write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
 
-    move(state(Mis,Can,1), state(Mis_v,Can_v,0))
-        :- Mis_v is Mis-1, Can_v is Can,
+move(state(Mis,Can,1), state(Mis_v,Can_v,0)) :-
+	 Mis_v is Mis-1, Can_v is Can,
         not(illegal(state(Mis_v,Can_v,0))),
         write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
 
-    move(state(Mis,Can,1), state(Mis_v,Can_v,0))
-        :- Mis_v is Mis, Can_v is Can-1,
+move(state(Mis,Can,1), state(Mis_v,Can_v,0)):-
+    Mis_v is Mis, Can_v is Can-1,
         not(illegal(state(Mis_v,Can_v,0))),
         write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
 
-    %%% noboat %%%
-    %%%%%%%%%%%%%%
+%%% noboat %%%
+%%%%%%%%%%%%%%
         
-    move(state(Mis,Can,0), state(Mis_v,Can_v,1))
-        :- Mis_v is Mis+1, Can_v is Can+1,
+move(state(Mis,Can,0), state(Mis_v,Can_v,1)):-
+    Mis_v is Mis+1, Can_v is Can+1,
         not(illegal(state(Mis_v,Can_v,1))),
         write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
 
-    move(state(Mis,Can,0), state(Mis_v,Can_v,1))
-        :- Mis_v is Mis+2, Can_v is Can,
+move(state(Mis,Can,0), state(Mis_v,Can_v,1)):-
+    Mis_v is Mis+2, Can_v is Can,
         not(illegal(state(Mis_v,Can_v,1))),
         write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
     
-    move(state(Mis,Can,0), state(Mis_v,Can_v,1))
-        :- Mis_v is Mis, Can_v is Can+2,
+move(state(Mis,Can,0), state(Mis_v,Can_v,1)):-
+    Mis_v is Mis, Can_v is Can+2,
         not(illegal(state(Mis_v,Can_v,1))),
         write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
 
-    move(state(Mis,Can,0), state(Mis_v,Can_v,1))
-        :- Mis_v is Mis+1, Can_v is Can,
+move(state(Mis,Can,0), state(Mis_v,Can_v,1)) :-
+	 Mis_v is Mis+1, Can_v is Can,
         not(illegal(state(Mis_v,Can_v,1))),
         write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
 
-    move(state(Mis,Can,0), state(Mis_v,Can_v,1))
-        :- Mis_v is Mis, Can_v is Can+1,
+move(state(Mis,Can,0), state(Mis_v,Can_v,1)):-
+    Mis_v is Mis, Can_v is Can+1,
         not(illegal(state(Mis_v,Can_v,1))),
         write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
 
-    %%% illegal predicates %%%
-    %%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% illegal predicates %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    illegal(state(M,C,B)) :- M < 0.
-    illegal(state(M,C,B)) :- M > 3.
-    illegal(state(M,C,B)) :- C < 0.
-    illegal(state(M,C,B)) :- C > 3.
+illegal(state(M,C,B)):- M < 0.
+illegal(state(M,C,B)):- M > 3.
+illegal(state(M,C,B)):- C < 0.
+illegal(state(M,C,B)):- C > 3.
 
-    illegal(state(1,3,B)).
-    illegal(state(2,3,B)).
-    illegal(state(1,2,B)).
+illegal(state(1,3,B)).
+illegal(state(2,3,B)).
+illegal(state(1,2,B)).
 
-    illegal(state(2,0,B)).
-    illegal(state(1,0,B)).
-    illegal(state(2,1,B)).
-
-    
-
-/*
-printsolution(Next_record, Closed) :-
-    state_record(State, Parent, _, _,_, Next_record),
-    state_record(Parent, Grand_parent, _, _, _, Parent_record),
-    member_set(Parent_record, Closed),
-    printsolution(Parent_record, Closed),
-    write(State), nl.
-*/
+illegal(state(2,0,B)).
+illegal(state(1,0,B)).
+illegal(state(2,1,B)).
