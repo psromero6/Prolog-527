@@ -27,8 +27,8 @@ list_i_j_swapped(A,I,J,C) :-
 		
 is_Goal(State,Goal):-
 	delete(Goal,e,Goal_simple),
-	delete(State, e, Goal_simple),
-	=(Goal,State).
+	delete(State, e, State_simple),
+	=(Goal_simple,State_simple).
 	
 	
 	heuristic(State,Goal,H):-
@@ -44,3 +44,8 @@ is_Goal(State,Goal):-
 			
 		elComp([],[],Sum,Counter):- =(Sum,Counter).
 			
+			
+	%%%%%% Default problem%%%%%%%%%%%
+	default_problem(Start_state,Goal_state):-
+		=(Start_state,[b,b,b,e,w,w,w]),
+		=(Goal_state,[w,w,w,e,b,b,b]).		

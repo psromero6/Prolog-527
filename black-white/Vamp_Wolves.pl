@@ -35,7 +35,7 @@ illegal(state(V,_,_))
 		V<0.
 		
 illegal(state(V,W,_))
-	:- member([V|W],[[1,2],[2,3],[1,2],[2,0],[1,0],[2,1]]).
+	:- member([V,W],[[1,3],[1,2],[2,3],[1,2],[2,0],[1,0],[2,1]]).
 	
 	%%%% Goal States %%%%
 	%%%%%%%%%%%%%%%%%%%%%
@@ -52,3 +52,10 @@ heuristic(state(Vampires_East,Werewolves_East,_),state(Vampires_West,Werewolves_
 		
 		square(X,Y):-
 		Y is X*X.
+		
+		
+	%%%%%% Default problem%%%%%%%%%%%
+	default_problem(Start_state,Goal_state):-
+		=(Start_state,state(3,3,true)),
+		=(Goal_state,state(0,0,false)).
+		

@@ -1,0 +1,6 @@
+Paige:
+	Black and White logic
+	Search method compolation and interfacing
+	Vamps and Wolves interfacing to search methods
+	Lauch.pl
+	
