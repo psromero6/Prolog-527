@@ -1,4 +1,4 @@
-%%%DFS%%%%%
+	%%%DFS%%%%%
 go_dfs():-
 	default_problem(Start_default,Goal_default),
 	go_dfs(Start_default,Goal_default).

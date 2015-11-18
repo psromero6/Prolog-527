@@ -1,5 +1,7 @@
-%%%BFS%%%%%
+	%%%BFS%%%%%
+	
 state_record(State, Parent, [State, Parent]).
+
 go_bfs():-
 	default_problem(Start_default,Goal_default),
 	go_bfs(Start_default,Goal_default).
@@ -14,7 +16,7 @@ go_bfs(Start,Goal):-
 	%%% path_bfs predicates %%%
 	
 path_bfs(Open,_,_) :-
-empty_queue(Open),
+	empty_queue(Open),
 	write('No solution' ), nl.
 
 path_bfs(Open,Goal,Closed):-
@@ -55,6 +57,7 @@ add_list_to_queue([H|T], Queue, New_queue) :-
 print_solution_bfs(State_record, _):- 
     state_record(State,nil, State_record),
     write(State), nl.
+	
 print_solution_bfs(State_record, Closed) :-
     state_record(State, Parent, State_record),
     state_record(Parent, _, Parent_record),

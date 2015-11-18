@@ -1,5 +1,6 @@
-%%%BFS%%%%%
+	%%%BestFirstSearch%%%%%
 state_record(State, Parent, G, H, F, [State, Parent, G, H, F]).
+
 precedes([_,_,_,_,F1], [_,_,_,_,F2]) :- F1 =< F2. 
 
 go_best():-
@@ -17,7 +18,7 @@ go_best(Start,Goal):-
 	%%% path_best predicates %%%
 	
 path_best(Open,_,_) :-
- empty_sort_queue(Open),
+	empty_sort_queue(Open),
 	write('No solution' ), nl.
 
 path_best(Open,Goal,Closed):-
@@ -31,9 +32,7 @@ path_best(Open,Goal,Closed):-
 		
 path_best(Open,Goal,Closed) :-
     remove_sort_queue(First_record, Open, Rest_of_open),
-	
     (bagof(Child,  moves_best(First_record, Open, Closed, Child, Goal), Children);Children = []),
-	
     insert_list(Children, Rest_of_open, New_open), 
     add_to_set(First_record, Closed, New_closed),
 	write('we now try:'),write(First_record),nl,
@@ -49,16 +48,12 @@ moves_best(State_record, Open, Closed, Child,Goal) :-
     heuristic(Next, Goal, H),
     F is G_new + H,
     state_record(Next, State, G_new, H, F, Child).
-	
-    %insert_list inserts a list of states obtained from a  call to
-    % bagof and  inserts them in a priotrity queue, one at a time
 insert_list([], L, L).
+
 insert_list([State | Tail], L, New_L) :-
     insert_sort_queue(State, L, L2),
     insert_list(Tail, L2, New_L).
 
-    % Printsolution prints out the solution path_best by tracing
-    % back through the states on closed using parent links.
 print_solution_best(Next_record, _):-  
     state_record(State, nil, _, _,_, Next_record),
     write(State), nl.
@@ -68,13 +63,3 @@ print_solution_best(Next_record, Closed) :-
     member_set(Parent_record, Closed),
     print_solution_best(Parent_record, Closed),
     write(State), nl.
-
-/*
-printsolution(Next_record, Closed) :-
-    state_record(State, Parent, _, _,_, Next_record),
-    state_record(Parent, Grand_parent, _, _, _, Parent_record),
-    member_set(Parent_record, Closed),
-    printsolution(Parent_record, Closed),
-    write(State), nl.
-*/
-	
