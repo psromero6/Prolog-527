@@ -1,8 +1,9 @@
 go(Start,Goal):-
 	empty_stack(Empty_been_stack),
-	stack(Start,Empty_been_stack,Been_stack),
-	path(Start,Goal,Been_stack).
+	stack(Start,Empty_been_stack,Closed_set),
+	path(Start,Goal,Closed_set).
 
+	%%% path predicates %%%
 path(Goal,Goal,Been_stack) :-
 	write('Solution Path Is:' ), nl,
 	reverse_print_stack(Been_stack).

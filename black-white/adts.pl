@@ -159,3 +159,17 @@ reverse_print_stack(S) :-
         stack(E, Rest, S),
         reverse_print_stack(Rest),
         write(E), nl.
+		
+		printsolution(Record, _):- 
+		=([State|Parent],Record),
+    =(Parent,nil),
+	write('printing:'),
+    write(State), nl.
+	
+printsolution(Record, Closed) :-
+    =([State|Parent],Record),
+    =([Parent|Grand_parent],Record),
+    member(Grand_parent, Closed),
+    printsolution(Grand_parent, Closed),
+	write('printing:'),
+    write(State), nl.
