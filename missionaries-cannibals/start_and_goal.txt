@@ -1,1 +1,4 @@
-go(state(3,3,1),state(0,0,0)).
+dfs(state(3,3,1),state(0,0,0)).
+bfs(state(3,3,1),state(0,0,0)).
+best(state(3,3,1),state(0,0,0)).
+

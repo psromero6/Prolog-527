@@ -25,7 +25,7 @@
     
 state_record(State, Parent, [State, Parent]).
 
-go(Start, Goal) :-
+bfs(Start, Goal) :-
     write('bfs missionaries and cannibals:'),nl,
     empty_queue(Empty_open),
     state_record(Start, nil, State),
@@ -50,10 +50,13 @@ path(Open, Closed, Goal) :-
     add_to_set(Next_record, Closed, New_closed),
     path(New_open, New_closed, Goal),!.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% moveS predicate %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 moves(State_record, Open, Closed, Child_record) :-
     state_record(State, _, State_record),
     move(State, Next),
-    % not (unsafe(Next)),
     state_record(Next, _, Test),
     not(member_queue(Test, Open)),
     not(member_set(Test, Closed)),
@@ -73,82 +76,5 @@ add_list_to_queue([], Queue, Queue).
 add_list_to_queue([H|T], Queue, New_queue) :-
     add_to_queue(H, Queue, Temp_queue),
     add_list_to_queue(T, Temp_queue, New_queue).
-
- %%% move predicate %%%
-%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%% boat %%%
-%%%%%%%%%%%%
-
-move(state(Mis,Can,1), state(Mis_v,Can_v,0))
-        :- Mis_v is Mis-1, Can_v is Can-1,
-        not(illegal(state(Mis_v,Can_v,0))),
-        write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
-
-move(state(Mis,Can,1), state(Mis_v,Can_v,0))
-        :- Mis_v is Mis-2, Can_v is Can,
-        not(illegal(state(Mis_v,Can_v,0))),
-        write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
-    
-move(state(Mis,Can,1), state(Mis_v,Can_v,0))
-        :- Mis_v is Mis, Can_v is Can-2,
-        not(illegal(state(Mis_v,Can_v,0))),
-        write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
-
-move(state(Mis,Can,1), state(Mis_v,Can_v,0))
-        :- Mis_v is Mis-1, Can_v is Can,
-        not(illegal(state(Mis_v,Can_v,0))),
-        write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
-
-move(state(Mis,Can,1), state(Mis_v,Can_v,0))
-        :- Mis_v is Mis, Can_v is Can-1,
-        not(illegal(state(Mis_v,Can_v,0))),
-        write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
-
-%%% noboat %%%
-%%%%%%%%%%%%%%
-
-move(state(Mis,Can,0), state(Mis_v,Can_v,1))
-        :- Mis_v is Mis+1, Can_v is Can+1,
-        not(illegal(state(Mis_v,Can_v,1))),
-        write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
-
-move(state(Mis,Can,0), state(Mis_v,Can_v,1))
-        :- Mis_v is Mis+2, Can_v is Can,
-        not(illegal(state(Mis_v,Can_v,1))),
-        write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
-    
-move(state(Mis,Can,0), state(Mis_v,Can_v,1))
-        :- Mis_v is Mis, Can_v is Can+2,
-        not(illegal(state(Mis_v,Can_v,1))),
-        write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
-
-move(state(Mis,Can,0), state(Mis_v,Can_v,1))
-        :- Mis_v is Mis+1, Can_v is Can,
-        not(illegal(state(Mis_v,Can_v,1))),
-        write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
-
-move(state(Mis,Can,0), state(Mis_v,Can_v,1))
-        :- Mis_v is Mis, Can_v is Can+1,
-        not(illegal(state(Mis_v,Can_v,1))),
-        write('missionaries='),write(Mis_v),write(', cannibals='),write(Can_v),nl.
-
-%%% illegal predicates %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-illegal(state(M,C,B)) :- M < 0.
-illegal(state(M,C,B)) :- M > 3.
-illegal(state(M,C,B)) :- C < 0.
-illegal(state(M,C,B)) :- C > 3.
-
-illegal(state(1,3,B)).
-illegal(state(2,3,B)).
-illegal(state(1,2,B)).
-
-illegal(state(2,0,B)).
-illegal(state(1,0,B)).
-illegal(state(2,1,B)).
 
 
