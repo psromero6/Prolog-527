@@ -21,6 +21,8 @@
 %%% This code has been tested with SWI-Prolog (Multi-threaded, Version 5.2.13)
 %%% and appears to function as intended.
 
+%bagcall(Child, moves(State, Rest_open_stack, Closed_set, Child), Children) :-
+
 %%%%%%%%%%%%%%%%%%%% stack operations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % These predicates give a simple, list based implementation of stacks
@@ -34,7 +36,10 @@ empty_stack([]).
 
     % member_stack tests if an element is a member of a stack
 
-member_stack(E, S) :- member(E, S).
+member_stack(E, S) :-
+    member(E, S).
+    %write('found element on stack, E='),write(E),nl.
+    %,write(', S='),write(S),nl.
 
     % stack performs the push, pop and peek operations
     % to push an element onto the stack
