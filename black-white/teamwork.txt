@@ -3,4 +3,10 @@ Paige:
 	Search method compolation and interfacing
 	Vamps and Wolves interfacing to search methods
 	Lauch.pl
+
+Hans:
+	Vampires and werewolves logic
+	DFS, BFS and BestFS implementations
+
+for maximum learning, both Paige and Hans implemented VW and BW and the 3 search methods. The turn-in version represents the merging of those implementations or the selecting of the more complete one.
 	
