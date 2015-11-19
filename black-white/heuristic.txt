@@ -1,0 +1,13 @@
+Vamp_Wolves heurists:
+	We measure the magnitude square of the speration of the state to the goal as a heuristic.
+	if our current state is state(vs,ws,_) and our goal is state(vg,wg,_) then our heruisic is sqrt((vs-vg)^2+(ws-wg)^2)/2.
+	
+	This is favoring state that are closer to our goal. It also works for any goal state.
+	
+	This heuristic is admissible because no state can have a heuristic greater that the actual cost. The closest that we can get is two creatures away from the solution that can be satisfied with one move. This will have a heurisic value of <=1. All other moves require multiple moves back and forth. 
+	
+	
+Black and White heuristic:
+	We use the number of tiles in the incorrect spot, ignoring the empty, for the heurisic in the black and white problem. 
+	if we have [b,b,e,w,b,w,w] and goal [w,w,w,e,b,b,b]. we remove the empty from both giving us:
+	[b,b,w,b,w,w] and [w,w,w,b,b,b] our heuristic is 5 because we have 1 match and 4 missmatches.

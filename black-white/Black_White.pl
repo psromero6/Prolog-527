@@ -34,14 +34,18 @@ is_Goal(State,Goal):-
 		%%% heuristic predicate %%%
 		%%%%%%%%%%%%%%%%%%%%%%%
 	heuristic(State,Goal,H):-
-		elComp(State,Goal,0,H).
+	delete(Goal,e,Goal_simple),
+	delete(State, e, State_simple),
+		elComp(State_simple,Goal_simple,0,H).
 		
 		
-		elComp([F|Ftail],[F|Stail],Sum,Counter):-
-			S is Sum+1,
-			elComp(Ftail,Stail,S,Counter).
+		elComp([F|Ftail],[S|Stail],Sum,Counter):-
+			not(=(F,S)),
+			T is Sum+1,
+			elComp(Ftail,Stail,T,Counter).
 			
-		elComp([_|Ftail],[_|Stail],Sum,Counter):-
+		elComp([F|Ftail],[F|Stail],Sum,Counter):-
+		
 			elComp(Ftail,Stail,Sum,Counter).
 			
 		elComp([],[],Sum,Counter):- =(Sum,Counter).
