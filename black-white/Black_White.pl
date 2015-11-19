@@ -41,7 +41,7 @@ is_Goal(State,Goal):-
 		
 		elComp([F|Ftail],[S|Stail],Sum,Counter):-
 			not(=(F,S)),
-			T is Sum+1,
+			T is Sum+1/2,
 			elComp(Ftail,Stail,T,Counter).
 			
 		elComp([F|Ftail],[F|Stail],Sum,Counter):-
