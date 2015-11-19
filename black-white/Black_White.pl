@@ -31,6 +31,8 @@ is_Goal(State,Goal):-
 	=(Goal_simple,State_simple).
 	
 	
+		%%% heuristic predicate %%%
+		%%%%%%%%%%%%%%%%%%%%%%%
 	heuristic(State,Goal,H):-
 		elComp(State,Goal,0,H).
 		
@@ -43,7 +45,13 @@ is_Goal(State,Goal):-
 			elComp(Ftail,Stail,Sum,Counter).
 			
 		elComp([],[],Sum,Counter):- =(Sum,Counter).
-			
+	
+	cost(State,Next,G_new,G):-
+			nth0(I,State,e),
+			nth0(J,Next,e),
+			C is abs(I-J),
+			G_new is G + C.
+		
 			
 	%%%%%% Default problem%%%%%%%%%%%
 	default_problem(Start_state,Goal_state):-

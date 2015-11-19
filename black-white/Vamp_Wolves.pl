@@ -42,8 +42,6 @@ is_Goal(State,Goal):-
 	=(State,Goal).
 	
 	
-	
-	ye
 	%%%% Heruristc States %%%%
 	%%%%%%%%%%%%%%%%%%%%%	
 	
@@ -51,7 +49,9 @@ heuristic(state(Vampires_East,Werewolves_East,_),state(Vampires_West,Werewolves_
 		square(-(Vampires_East,Vampires_West),A),
 		square(-(Werewolves_East,Werewolves_West),B),
 		H is sqrt(A+B).
-		
+
+		cost(_,_,G_new,G):-
+	G_new is G + 1 .		
 		
 square(X,Y):-
 		Y is X * X.

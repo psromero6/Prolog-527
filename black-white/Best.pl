@@ -44,7 +44,7 @@ moves_best(State_record, Open, Closed, Child,Goal) :-
     state_record(Next, _, _, _, _, Test),
     not(member_sort_queue(Test, Open)),
     not(member_set(Test, Closed)),
-	G_new is G + 1,
+	cost(State,Next,G_new,G),
     heuristic(Next, Goal, H),
     F is G_new + H,
     state_record(Next, State, G_new, H, F, Child).
