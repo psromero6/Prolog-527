@@ -1,0 +1,29 @@
+go_best(state(3,3,true),state(0,0,_)).
+we now try:[state(3,3,true),nil,0,2.1213203435596424,2.1213203435596424]
+we now try:[state(2,2,false),state(3,3,true),1,1.4142135623730951,2.414213562373095]
+we now try:[state(3,1,false),state(3,3,true),1,1.5811388300841898,2.58113883008419]
+we now try:[state(3,2,false),state(3,3,true),1,1.8027756377319946,2.802775637731995]
+we now try:[state(3,2,true),state(2,2,false),2,1.8027756377319946,3.802775637731995]
+we now try:[state(3,0,false),state(3,2,true),3,1.5,4.5]
+we now try:[state(3,1,true),state(3,0,false),4,1.5811388300841898,5.58113883008419]
+we now try:[state(1,1,false),state(3,1,true),5,0.7071067811865476,5.707106781186548]
+we now try:[state(2,2,true),state(1,1,false),6,1.4142135623730951,7.414213562373095]
+we now try:[state(0,2,false),state(2,2,true),7,1.0,8.0]
+we now try:[state(0,3,true),state(0,2,false),8,1.5,9.5]
+we now try:[state(0,1,false),state(0,3,true),9,0.5,9.5]
+we now try:[state(1,1,true),state(0,1,false),10,0.7071067811865476,10.707106781186548]
+
+The solution is:
+state(3,3,true)
+state(2,2,false)
+state(3,2,true)
+state(3,0,false)
+state(3,1,true)
+state(1,1,false)
+state(2,2,true)
+state(0,2,false)
+state(0,3,true)
+state(0,1,false)
+state(1,1,true)
+state(0,0,false)
+true .
